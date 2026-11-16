@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A dynamic product explorer demonstrating asynchronous JavaScript, REST API integration, filtering and local state.">
+  <meta name="theme-color" content="#f6f7fb">
+  <title>Foundry — Product Explorer</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="Foundry home"><span class="brand-mark">F</span> foundry<span class="brand-period">.</span></a>
+      <div class="top-actions">
+        <span class="api-status" id="apiStatus"><i></i> Connecting to store</span>
+        <button class="cart-button" id="cartButton" aria-label="Open cart">Bag <span id="cartCount">0</span></button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">THE EVERYDAY EDIT · 2026</p>
+          <h1>Good things.<br><em>Thoughtfully found.</em></h1>
+          <p class="hero-description">A considered collection of useful things for work, home, and everywhere in between.</p>
+          <a class="hero-link" href="#catalog">Explore the collection <span>↘</span></a>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <div class="art-orbit orbit-one"></div><div class="art-orbit orbit-two"></div>
+          <div class="art-card"><span>THE EDIT</span><b>Less, but<br>better.</b><small>OBJECTS FOR DAILY LIFE</small></div>
+          <div class="art-sticker">CURATED<br>FOR YOU ✳</div>
+        </div>
+      </section>
+
+      <section class="catalog" id="catalog">
+        <div class="catalog-heading">
+          <div><p class="eyebrow">A LITTLE OF EVERYTHING</p><h2>Explore the collection</h2><p class="subheading">Find your next favorite thing.</p></div>
+          <div class="result-count" id="resultCount" aria-live="polite">Loading collection…</div>
+        </div>
+        <div class="toolbar">
+          <label class="search-wrap"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search products…" autocomplete="off" aria-label="Search products"></label>
+          <label class="sort-wrap"><span>Sort by</span><select id="sortSelect" aria-label="Sort products"><option value="featured">Featured</option><option value="price-asc">Price: low to high</option><option value="price-desc">Price: high to low</option><option value="rating">Top rated</option><option value="title">Name: A to Z</option></select></label>
+        </div>
+        <div class="category-tabs" id="categoryTabs" role="group" aria-label="Filter by category">
+          <button class="category-tab active" data-category="all">All items</button>
+        </div>
+
+        <div id="errorBanner" class="error-banner" role="alert" hidden>
+          <div><strong>We couldn't load the collection.</strong><p id="errorMessage">Please check your connection and try again.</p></div>
+          <button id="retryButton" class="retry-button">Try again</button>
+        </div>
+        <div id="loadingGrid" class="product-grid" aria-label="Loading products">
+          <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+        </div>
+        <div id="productGrid" class="product-grid" aria-live="polite"></div>
+        <div id="emptyState" class="empty-state" hidden><span>⌕</span><h3>No matches just yet</h3><p>Try another search or choose a different category.</p><button id="clearFilters">Clear filters</button></div>
+      </section>
+    </main>
+    <footer><a class="brand footer-brand" href="#"><span class="brand-mark">F</span> foundry<span class="brand-period">.</span></a><span>Thoughtfully found. Everyday good.</span><span>Demo powered by DummyJSON API</span></footer>
+  </div>
+
+  <div class="overlay" id="cartOverlay" hidden>
+    <button class="overlay-backdrop" id="closeCartBackdrop" aria-label="Close cart"></button>
+    <aside class="cart-drawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+      <div class="drawer-head"><div><p class="eyebrow">YOUR PICKS</p><h2 id="cartTitle">Your bag <span id="drawerCount">(0)</span></h2></div><button class="close-button" id="closeCart" aria-label="Close cart">×</button></div>
+      <div id="cartItems" class="cart-items"></div>
+      <div class="cart-footer"><div><span>Subtotal</span><strong id="cartSubtotal">$0.00</strong></div><small>Shipping and taxes calculated at checkout.</small><button class="checkout-button" id="checkoutButton">Continue to checkout</button></div>
+    </aside>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
